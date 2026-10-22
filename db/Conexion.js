@@ -11,6 +11,14 @@ class Conexion {
 
     constructor() {
         const config = this.cargarConfiguracion();
+        if (process.env.DATABASE_URL) {
+            this.pool = new Pool({
+                connectionString: process.env.DATABASE_URL,
+                ssl: { rejectUnauthorized: false }
+            });
+            console.log("Conexion configurada con PostgreSQL en la nube (DATABASE_URL)");
+            return;
+        }
         const direccion = new URL(config.url);
         this.pool = new Pool({
             host: direccion.hostname,
