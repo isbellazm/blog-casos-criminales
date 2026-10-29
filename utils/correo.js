@@ -36,12 +36,12 @@ function tokenBaja(correo) {
 }
 
 function enlaceBaja(correo) {
-    const sitio = process.env.URL_SITIO || "http://localhost:3000";
+    const sitio = process.env.URL_SITIO || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
     return sitio + "/api/suscriptores/baja?correo=" + encodeURIComponent(correo) + "&token=" + tokenBaja(correo);
 }
 
 function armarHtml(entrada, correo) {
-    const sitio = process.env.URL_SITIO || "http://localhost:3000";
+    const sitio = process.env.URL_SITIO || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
     const enlace = entrada.enlace || sitio;
     return `
 <div style="background:#0c0c10;padding:32px 0;font-family:Arial,sans-serif;">
@@ -57,7 +57,7 @@ function armarHtml(entrada, correo) {
 }
 
 function armarTexto(entrada, correo) {
-    const sitio = process.env.URL_SITIO || "http://localhost:3000";
+    const sitio = process.env.URL_SITIO || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
     return "Nuevo expediente en Casos Criminales\n\n"
         + entrada.titulo + "\n\n"
         + entrada.resumen + "\n\n"
@@ -66,7 +66,7 @@ function armarTexto(entrada, correo) {
 }
 
 function armarHtmlConfirmacion(correo) {
-    const sitio = process.env.URL_SITIO || "http://localhost:3000";
+    const sitio = process.env.URL_SITIO || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
     return `
 <div style="background:#0c0c10;padding:32px 0;font-family:Arial,sans-serif;">
   <div style="max-width:560px;margin:0 auto;background:#151318;border-top:6px solid #d81e3f;padding:28px;color:#efe9de;">
@@ -86,7 +86,7 @@ async function enviarConfirmacion(correo) {
         return false;
     }
 
-    const sitio = process.env.URL_SITIO || "http://localhost:3000";
+    const sitio = process.env.URL_SITIO || process.env.RENDER_EXTERNAL_URL || "http://localhost:3000";
     const remitente = '"' + (process.env.CORREO_NOMBRE || "Casos Criminales") + '" <' + process.env.CORREO_USUARIO + ">";
 
     try {
